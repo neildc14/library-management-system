@@ -42,32 +42,13 @@
                     <td class="text-danger"><%=bookinstance.status%></td>
                     <%} else {%>
                     <td class="text-warning"><%=bookinstance.status%></td>
-                    <%} %> <%if(!bookinstance.status == "Available") {%>
+                    <%} %> <%if(bookinstance.status !== "Available") {%>
                     <td class="text-warning">(<%=bookinstance.due_back%>)</td>
                     <% } %>
                   </tr>
                 </tbody>
                 <%}) %>
               </table>
-              <!-- <ul class="list-group list-group-flush">
-                <%bookinstance_list.forEach((bookinstance)=> {%>
-                <li class="list-group-item">
-                  <a href="<%=bookinstance.url%>"
-                    ><%=bookinstance.book.title%> : <%bookinstance.imprint%>
-                    -</a
-                  >
-                  <%if(bookinstance.status == "Available") {%>
-                  <span class="text-success"><%=bookinstance.status%></span>
-                  <%} else if (bookinstance.status == "Maintenance") {%>
-                  <span class="text-danger"><%=bookinstance.status%></span>
-                  <%} else {%>
-                  <span class="text-warning"><%=bookinstance.status%></span>
-                  <%} %> <%if(!bookinstance.status == "Available") {%>
-                  <span class="text-warning">(<%=bookinstance.due_back%>)</span>
-                  <% } %>
-                </li>
-                <%}) %>
-              </ul> -->
             </div>
           </div>
         </div>
