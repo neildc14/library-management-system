@@ -1,0 +1,24 @@
+<div class="col col-sm-2">
+  <ul
+    class="sidebar-nav nav flex-column nav-pills"
+    id="v-pills-tab"
+    role="tablist"
+    aria-orientation="vertical"
+  >
+    <%navlinks.forEach((nav)=>{%>
+    <li>
+      <a
+        class="nav-link btn btn-nav"
+        role="tab"
+        aria-controls="v-pills-home"
+        aria-selected="true"
+        href="<%=nav._url%>"
+        ><%=nav._nav%></a
+      >
+    </li>
+    <%if(nav._nav === "All Book Instances") {%>
+    <!-- <hr aria-orientation="horizontal" /> -->
+    <div class="line"></div>
+    <%}%> <%})%>
+  </ul>
+</div>

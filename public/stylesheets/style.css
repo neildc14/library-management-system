@@ -2,7 +2,25 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+li {
+  list-style: none;
+}
 
-a {
-  color: #00B7FF;
+.btn {
+  text-align: left !important;
+}
+
+.line {
+  height: 0.01rem;
+  width: 100%;
+  margin: 1rem 0;
+  background-color: rgb(34, 33, 33);
+}
+
+.heading {
+  padding: 0.2rem 1rem;
+}
+
+span {
+  padding-left: 5px;
 }

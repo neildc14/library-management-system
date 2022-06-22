@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head'); %>
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div class="row"><%- include('./partials/nav'); %>
+            <div class="col col-sm-10 content">
+                <div class="heading bg-success">
+                    <h1 class="title"><%=title%></h1>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                  <%book_list.forEach((book)=> {%>
+                    <li class="list-group-item"><a href="<%=book.url%>"><%=book.title%></a>
+                        <span>(<%=book.author.name%>)</span>
+                    </li>
+                    <%}) %>
+                    
+                </ul>
+            </div>
+      </div>
+    </main>
+    <%- include('./partials/scripts'); %>
+  </body>
+</html>
