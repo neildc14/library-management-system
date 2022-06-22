@@ -25,6 +25,7 @@
                     <th scope="col">TItle</th>
                     <th scope="col">Imprint</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Due Back</th>
                   </tr>
                 </thead>
                 <%bookinstance_list.forEach((bookinstance)=> {%>
@@ -43,7 +44,9 @@
                     <%} else {%>
                     <td class="text-warning"><%=bookinstance.status%></td>
                     <%} %> <%if(bookinstance.status !== "Available") {%>
-                    <td class="text-warning">(<%=bookinstance.due_back%>)</td>
+                    <td class="text-warning">
+                      (<%=bookinstance.due_back_formatted%>)
+                    </td>
                     <% } %>
                   </tr>
                 </tbody>
