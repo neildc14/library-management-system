@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head'); %>
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <%- include('./partials/nav'); %>
+          <div class="col col-sm-10 content">
+            <div class="heading bg-success">
+              <h1 class="title"><%=title%></h1>
+            </div>
+            <div class="card mt-4">
+              <table class="table m-0">
+                <%if(bookinstance_list.length <= 0) {%>
+                <tbody>
+                  <tr>
+                    <td>There are no book copies in this library.</td>
+                  </tr>
+                </tbody>
+
+                <%}%>
+                <thead>
+                  <tr>
+                    <th scope="col">TItle</th>
+                    <th scope="col">Imprint</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <%bookinstance_list.forEach((bookinstance)=> {%>
+                <tbody>
+                  <tr>
+                    <td>
+                      <a href="<%=bookinstance.url%>"
+                        ><%=bookinstance.book.title%>
+                      </a>
+                    </td>
+                    <td><%=bookinstance.imprint%></td>
+                    <%if(bookinstance.status == "Available") {%>
+                    <td class="text-success"><%=bookinstance.status%></td>
+                    <%} else if (bookinstance.status == "Maintenance") {%>
+                    <td class="text-danger"><%=bookinstance.status%></td>
+                    <%} else {%>
+                    <td class="text-warning"><%=bookinstance.status%></td>
+                    <%} %> <%if(!bookinstance.status == "Available") {%>
+                    <td class="text-warning">(<%=bookinstance.due_back%>)</td>
+                    <% } %>
+                  </tr>
+                </tbody>
+                <%}) %>
+              </table>
+              <!-- <ul class="list-group list-group-flush">
+                <%bookinstance_list.forEach((bookinstance)=> {%>
+                <li class="list-group-item">
+                  <a href="<%=bookinstance.url%>"
+                    ><%=bookinstance.book.title%> : <%bookinstance.imprint%>
+                    -</a
+                  >
+                  <%if(bookinstance.status == "Available") {%>
+                  <span class="text-success"><%=bookinstance.status%></span>
+                  <%} else if (bookinstance.status == "Maintenance") {%>
+                  <span class="text-danger"><%=bookinstance.status%></span>
+                  <%} else {%>
+                  <span class="text-warning"><%=bookinstance.status%></span>
+                  <%} %> <%if(!bookinstance.status == "Available") {%>
+                  <span class="text-warning">(<%=bookinstance.due_back%>)</span>
+                  <% } %>
+                </li>
+                <%}) %>
+              </ul> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <%- include('./partials/scripts'); %>
+  </body>
+</html>
