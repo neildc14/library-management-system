@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./partials/head'); %>
+  <%- include('./partials/head');%>
   <body>
     <main>
       <div class="container-fluid">
@@ -9,33 +9,30 @@
 
           <div class="col col-sm-10 content">
             <div class="heading bg-success">
-              <h1 class="title"><%=title%></h1>
+              <h1 class="title"><%=title %></h1>
             </div>
+
             <div class="card mt-4">
               <table class="table m-0">
-                <%if(author_list.length <= 0) {%>
+                <%if(genre_list.length <= 0) {%>
                 <tbody>
                   <tr>
-                    <td>There are no authors.</td>
+                    <td>There are no genres.</td>
                   </tr>
                 </tbody>
                 <%}%>
 
                 <thead>
                   <tr>
-                    <th scope="col">Author</th>
-                    <th scope="col">Date of Birth</th>
-                    <th scope="col">Date of Death</th>
+                    <th scope="col">Records</th>
                   </tr>
                 </thead>
-                <%author_list.forEach((author)=> {%>
+                <%genre_list.forEach((genre) => { %>
                 <tbody>
                   <tr>
                     <td>
-                      <a href="<%=author.url%>"><%=author.name%> </a>
+                      <a href="<%=genre.url%>"><%=genre.name%></a>
                     </td>
-                    <td><%=author.date_of_birth_formatted%></td>
-                    <td><%=author.date_of_death_formatted%></td>
                   </tr>
                 </tbody>
                 <%}) %>
@@ -45,6 +42,7 @@
         </div>
       </div>
     </main>
+
     <%- include('./partials/scripts'); %>
   </body>
 </html>

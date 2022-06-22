@@ -13,32 +13,44 @@
             </div>
 
             <div class="card mt-4">
-              <div class="card-header">
-                <h3>Record Content</h3>
+              <table class="table m-0">
+                <thead>
+                  <tr>
+                    <th scope="col">Records</th>
+                    <th scope="col">Total</th>
+                  </tr>
+                </thead>
                 <%if (error) {%>
-                <p>Error getting record content.</p>
+                <tbody>
+                  <tr>
+                    <td>Error getting record content.</td>
+                  </tr>
+                </tbody>
                 <%} else {%>
-              </div>
-
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <strong>Books:</strong> <%=data.book_count%>
-                </li>
-                <li class="list-group-item">
-                  <strong>Copies:</strong> <%=data.book_instance_count%>
-                </li>
-                <li class="list-group-item">
-                  <strong>Copies available::</strong>
-                  <%=data.book_instance_available_count%>
-                </li>
-                <li class="list-group-item">
-                  <strong>Authors:</strong> <%=data.author_count%>
-                </li>
-                <li class="list-group-item">
-                  <strong>Genres:</strong> <%=data.genre_coun%>
-                </li>
-                <%}%>
-              </ul>
+                <tbody>
+                  <tr>
+                    <td><strong>Books:</strong></td>
+                    <td><%=data.book_count%></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Copies:</strong></td>
+                    <td><%=data.book_instance_count%></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Copies available::</strong></td>
+                    <td><%=data.book_instance_available_count%></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Authors:</strong></td>
+                    <td><%=data.author_count%></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Genres:</strong></td>
+                    <td><%=data.genre_count%></td>
+                  </tr>
+                </tbody>
+              </table>
+              <%}%>
             </div>
           </div>
         </div>

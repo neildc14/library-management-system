@@ -35,3 +35,7 @@ span {
   position: fixed !important;
   right: 0;
 } */
+
+.count {
+  margin-right: 100% !important;
+}
