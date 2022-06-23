@@ -27,7 +27,7 @@ exports.index = function (req, res) {
     },
     function (err, results) {
       res.render("index", {
-        title: "Home",
+        title: "Local Library",
         error: err,
         data: results,
         navlinks,

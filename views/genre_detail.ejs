@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head'); %>
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <%- include('./partials/nav'); %>
+
+          <div class="col col-sm-10 content">
+            <div class="heading bg-success">
+              <h1 class="title text-light">Genre: <%=genre.name%></h1>
+            </div>
+            <h4 class="my-4">Books</h4>
+            <div>
+              <%if(genre_books.length <= 0) {%>
+              <p>There has no books.</p>
+
+              <%} else {%> <%genre_books.forEach((genre_book) =>{ %>
+              <section>
+                <a href="<%=genre_book.url%>"><%=genre_book.title%></a>
+                <p><%=genre_book.summary%></p>
+              </section>
+              <%})%><%}%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <%- include('./partials/scripts'); %>
+  </body>
+</html>
