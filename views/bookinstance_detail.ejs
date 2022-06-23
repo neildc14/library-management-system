@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head'); %>
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <%- include('./partials/nav'); %>
+
+          <div class="col col-sm-10 content">
+            <div class="heading bg-success">
+              <h1 class="title text-light">ID: <%=bookinstance.id%></h1>
+            </div>
+            <section class="mt-3">
+              <p>
+                <strong>Title: </strong
+                ><a href="<%=bookinstance.book.url%>"
+                  ><%=bookinstance.book.title%></a
+                >
+              </p>
+              <p><strong>Imprint: </strong><%=bookinstance.imprint%></p>
+              <p>
+                <strong>Status: </strong>
+                <%if(bookinstance.status === "Available") {%>
+                <span class="text-success"><%=bookinstance.status%></span>
+                <%} else if(bookinstance.status === "Maintenance") {%>
+                <span class="text-danger"><%=bookinstance.status%></span>
+                <%} else {%>
+                <span class="text-warning"><%=bookinstance.status%></span>
+                <%}%>
+              </p>
+              <p>
+                <strong>Due back: </strong><%=bookinstance.due_back_formatted%>
+              </p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+    <%- include('./partials/scripts.ejs') %>
+  </body>
+</html>
