@@ -11,16 +11,18 @@
             <div class="heading bg-success">
               <h1 class="title text-light">Genre: <%=genre.name%></h1>
             </div>
-            <h4 class="my-4">Books</h4>
-            <div>
+
+            <section class="mx-5 mt-4">
+              <h4 class="mx-2">Books</h4>
+              <div class="horizontal-line"></div>
               <%if(genre_books.length <= 0) {%>
               <p>This genre has no books</p>
 
               <%} else {%> <%genre_books.forEach((genre_book) =>{ %>
-              <section>
+              <div>
                 <a href="<%=genre_book.url%>"><%=genre_book.title%></a>
                 <p><%=genre_book.summary%></p>
-              </section>
+              </div>
               <%})%><%}%>
             </div>
           </div>

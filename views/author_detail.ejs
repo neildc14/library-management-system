@@ -18,8 +18,10 @@
                 <%=author.date_of_death_formatted%>
               </p>
             </section>
-            <section class="mx-5">
-              <h4>Books</h4>
+            <section class="mx-5 mt-4">
+              <h4 class="mx-2">Books</h4>
+              <div class="horizontal-line"></div>
+
               <%if(author_books.length <= 0) {%>
               <p>This author has no books.</p>
               <%}%> <%author_books.forEach((book)=> {%>

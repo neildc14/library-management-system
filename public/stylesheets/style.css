@@ -39,3 +39,9 @@ span {
 .count {
   margin-right: 100% !important;
 }
+
+.horizontal-line {
+  height: 0.1rem;
+  width: 100%;
+  background-color: rgb(219, 214, 214);
+}
