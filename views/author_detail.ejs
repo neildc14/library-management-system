@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head'); %>
+
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <%- include('./partials/nav'); %>
+          <div class="col col-sm-10 content">
+            <div class="heading bg-success">
+              <h1 class="title text-light">Author: <%=author.name%></h1>
+            </div>
+            <section class="mt-2">
+              <p>
+                <%=author.date_of_birth_formatted%>
+                <%if(author.date_of_death_formatted !== " ") {%> - <%}%>
+                <%=author.date_of_death_formatted%>
+              </p>
+            </section>
+            <section class="mx-5">
+              <h4>Books</h4>
+              <%if(author_books.length <= 0) {%>
+              <p>This author has no books.</p>
+              <%}%> <%author_books.forEach((book)=> {%>
+              <a href="<%=book.url%>"><%=book.title%></a>
+              <p><%=book.summary%></p>
+              <%})%>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+    <%- include('./partials/scripts.ejs') %>
+  </body>
+</html>
