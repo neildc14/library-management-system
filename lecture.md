@@ -18,3 +18,6 @@ Population is the process of automatically replacing the specified paths in the 
 luxon is for date formatting used with the help of virtual in models
 return this.date_of_birth ? DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED) : '';
 ternary operator to use when there is no data/field found in the db
+
+ASYNC
+async.parallel({functions: to be run}, function(err, result){res.render})

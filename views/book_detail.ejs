@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head'); %>
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <%- include('./partials/nav'); %>
+
+          <div class="col col-sm-10 content">
+            <div class="heading bg-success">
+              <h1 class="title text-light">Title: <%=book.title%></h1>
+            </div>
+            <section class="mt-3">
+              <p><strong>Author:</strong> <%=book.author.name%></p>
+              <article>
+                <p><strong>Summary: </strong><%=book.summary%></p>
+              </article>
+              <p><strong>ISBN: </strong><%=book.isbn%></p>
+              <p>
+                <strong>Genre: </strong><%book.genre.forEach((genre, index)=>{%>
+                <a href="<%=genre.url%>"><%=genre.name%></a>
+                <%if(index < book.genre.length -1){%> , <%}%> <%})%>
+              </p>
+            </section>
+            <section class="mx-5 mb-5">
+              <h4 class="mb-4">Copies</h4>
+
+              <%if(book_instances.length <= 0) {%>
+              <p>There are no copies of this book in the library.</p>
+
+              <%}%> <%book_instances.forEach((instance)=> {%>
+              <%if(instance.status ==="Available") {%>
+              <p class="text-success m-0"><%=instance.status%></p>
+              <%} else if(instance.status === "Maintenance") {%>
+              <p class="text-danger m-0"><%=instance.status%></p>
+              <%} else {%>
+              <p class="text-warning m-0"><%=instance.status%></p>
+              <%}%>
+              <p class="m-0"><strong>Imprint: </strong><%=instance.imprint%></p>
+              <%if(instance.status !== "Available") {%>
+              <p class="m-0">
+                <strong>Due back: </strong><%=instance.due_back_formatted%>
+              </p>
+              <%}%>
+              <p class="m-0">
+                <strong>Id: </strong
+                ><a href="<%=instance.url%>"><%=instance.id%></a>
+              </p>
+              <hr />
+              <%}) %>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+    <%- include('./partials/scripts.ejs') %>
+  </body>
+</html>
