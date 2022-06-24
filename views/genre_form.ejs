@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include('./partials/head'); %>
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <%- include('./partials/nav'); %>
+
+          <div class="col col-sm-10 content">
+            <div class="heading bg-success">
+              <h2 class="title text-light"><%=title%></h2>
+            </div>
+            <form name="createGenreForm" class="mt-4" action="" method="POST">
+              <div class="mb-3">
+                <label for="name" class="form-label">Genre</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  name="name"
+                  autocomplete="off"
+                  placeholder="Fantasy, Poetry etc."
+                  value="<%= genre == undefined ? '' : genre.name %>"
+                  required="true"
+                />
+                <%if(error) {%>
+                <p class="text-danger" id="error"><%=error %></p>
+                <%}%>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <%- include('./partials/scripts');%>
+  </body>
+</html>

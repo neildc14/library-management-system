@@ -63,3 +63,25 @@ span {
   100% { transform: rotate(360deg); }
 }
  */
+
+form {
+  max-width: 50%;
+  margin: 0 auto;
+  padding: 1rem;
+
+  border: 1px solid rgb(160, 159, 159);
+  border-radius: 3px;
+}
+
+.form-label {
+  font-weight: 500 !important;
+}
+
+.title-desc,
+.genre-desc {
+  text-transform: capitalize;
+}
+
+#error {
+  font-size: 14px;
+}
