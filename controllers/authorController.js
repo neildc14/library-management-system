@@ -13,6 +13,7 @@ exports.author_list = function (req, res, next) {
       res.render("author_list", {
         title: "Author List",
         author_list: list_authors,
+        active: "/catalog/authors",
         navlinks,
       });
     });
@@ -41,6 +42,7 @@ exports.author_detail = function (req, res, next) {
         title: "Author Detail",
         author: results.author,
         author_books: results.author_books,
+        active: "/catalog/authors/:id",
         navlinks,
       });
     }

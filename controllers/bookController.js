@@ -28,9 +28,10 @@ exports.index = function (req, res) {
     },
     function (err, results) {
       res.render("index", {
-        title: "Local Library",
+        title: "San Jose City Library",
         error: err,
         data: results,
+        active: "/catalog",
         navlinks,
       });
     }
@@ -50,6 +51,7 @@ exports.book_list = function (req, res, next) {
       res.render("book_list", {
         title: "Book List",
         book_list: list_books,
+        active: "/catalog/books",
         navlinks,
       });
     });
@@ -82,6 +84,7 @@ exports.book_detail = function (req, res, next) {
         title: results.book.title,
         book: results.book,
         book_instances: results.book_instance,
+        active: "/catalog/book/:id",
         navlinks,
       });
     }

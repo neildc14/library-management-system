@@ -6,9 +6,9 @@
     aria-orientation="vertical"
   >
     <%navlinks.forEach((nav)=>{%>
-    <li>
+    <li class="m-1">
       <a
-        class="nav-link btn btn-nav"
+        class="nav-link btn btn-nav <%= active === nav._url ? 'active' : '' %>"
         role="tab"
         aria-controls="v-pills-home"
         aria-selected="true"

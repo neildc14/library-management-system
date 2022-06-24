@@ -20,13 +20,13 @@ exports.genre_list = function (req, res, next) {
         title: "Genre List",
         genre_list: list_genres,
         error: err,
+        active: "/catalog/genres",
         navlinks,
       });
     });
 };
 
 // Display detail page for a specific Genre.
-
 exports.genre_detail = function (req, res, next) {
   var id = mongoose.Types.ObjectId(req.params.id);
   async.parallel(
@@ -54,6 +54,7 @@ exports.genre_detail = function (req, res, next) {
         title: "Genre Detail",
         genre: results.genre,
         genre_books: results.genre_books,
+        active: "/catalog/genres/:id",
         navlinks,
       });
     }
@@ -66,6 +67,7 @@ exports.genre_create_get = function (req, res, next) {
     title: "Create Genre",
     genre: undefined,
     error: null,
+    active: "/catalog/genre/create",
     navlinks,
   });
 };
@@ -96,6 +98,7 @@ exports.genre_create_post = [
           title: "Create Genre",
           genre: genre,
           error: "This genre already exists.",
+          active: "/catalog/genre/create",
           navlinks,
         });
       } else {

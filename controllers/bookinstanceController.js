@@ -13,6 +13,7 @@ exports.bookinstance_list = function (req, res, next) {
       res.render("bookinstance_list", {
         title: "Book Instance List",
         bookinstance_list: list_bookinstances,
+        active: "/catalog/bookinstances",
         navlinks,
       });
     });
@@ -32,6 +33,7 @@ exports.bookinstance_detail = function (req, res, next) {
       res.render("bookinstance_detail", {
         title: `Copy: ${bookinstance.book.title}`,
         bookinstance: bookinstance,
+        active: "/catalog/bookinstances/:id",
         navlinks,
       });
     });

@@ -1,8 +1,9 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "PT Serif", serif !important;
   transition: all 0.5s ease-in-out;
 }
+
 li {
   list-style: none;
 }
@@ -36,6 +37,9 @@ span {
   background-color: rgb(219, 214, 214);
 }
 
+.booklist {
+  padding: 12px !important;
+}
 /*page loader*/
 /* Center the loader */
 /* #loader {
