@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include('./partials/head'); %>
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <%- include('./partials/nav'); %>
+
+          <div class="col col-sm-10 content">
+            <div class="heading bg-info py-2">
+              <h2 class="title text-light my-0"><%=title%></h2>
+            </div>
+            <form class="mt-4" action="" method="POST">
+              <div class="mb-3">
+                <label for="first_name" class="form-label">First Name:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="first_name"
+                  name="first_name"
+                  autocomplete="off"
+                  placeholder="First name (Christian)"
+                  value="<%= author === undefined ? '' : author.first_name%>"
+                  required="true"
+                />
+                <label for="family_name" class="form-label mt-1"
+                  >Family Name:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="family_name"
+                  name="family_name"
+                  autocomplete="off"
+                  placeholder="Family name (Surname)"
+                  value="<%= author === undefined ? '' : author.family_name%>"
+                  required="true"
+                />
+                <label for="date_of_birth" class="form-label mt-1"
+                  >Date of Birth:</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  name="date_of_birth"
+                  id="date_of_birth"
+                />
+                <label for="date_of_death" class="form-label mt-1"
+                  >Date of Death:</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  name="date_of_death"
+                  id="date_of_death"
+                />
+              </div>
+              <%if(errors !== null) {%>
+              <ul>
+                <%errors.forEach((error) =>{%>
+                <p class="text-danger" id="error"><%=error.msg %></p>
+                <%})%>
+              </ul>
+              <%}%>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+    <%- include('./partials/scripts');%>
+  </body>
+</html>

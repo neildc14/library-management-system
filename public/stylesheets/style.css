@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 40px;
   font: 14px "PT Serif", serif !important;
   transition: all 0.5s ease-in-out;
 }
@@ -82,7 +82,8 @@ form {
 }
 
 .title-desc,
-.genre-desc {
+.genre-desc,
+.author-desc {
   text-transform: capitalize;
 }
 

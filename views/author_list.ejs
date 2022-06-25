@@ -8,14 +8,14 @@
           <%- include('./partials/nav'); %>
 
           <div class="col col-sm-10 content">
-            <div class="heading bg-success d-flex align-items-center">
+            <div class="heading bg-success d-flex align-items-center py-2">
               <img
                 src="/images/author.png"
                 alt="library folder image"
                 height="40"
                 width="40"
               />
-              <h2 class="title text-light mx-2"><%=title%></h2>
+              <h2 class="title text-light mx-2 my-0"><%=title%></h2>
             </div>
             <div class="card mt-4">
               <table class="table m-0">
@@ -38,7 +38,9 @@
                 <tbody>
                   <tr>
                     <td>
-                      <a href="<%=author.url%>"><%=author.name%> </a>
+                      <a href="<%=author.url%>"
+                        ><span class="author-desc"><%=author.name%> </span></a
+                      >
                     </td>
                     <td><%=author.date_of_birth_formatted%></td>
                     <td><%=author.date_of_death_formatted%></td>

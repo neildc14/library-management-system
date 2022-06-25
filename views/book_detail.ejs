@@ -8,8 +8,10 @@
           <%- include('./partials/nav'); %>
 
           <div class="col col-sm-10 content">
-            <div class="heading bg-secondary">
-              <h2 class="title text-light">Title: <%=book.title%></h2>
+            <div class="heading bg-secondary py-2">
+              <h2 class="title text-light my-0">
+                Title: <span class=""><%=book.title%></span>
+              </h2>
             </div>
             <section class="mt-3">
               <p><strong>Author:</strong> <%=book.author.name%></p>
