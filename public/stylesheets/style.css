@@ -1,7 +1,14 @@
 body {
-  padding: 40px;
   font: 14px "PT Serif", serif !important;
   transition: all 0.5s ease-in-out;
+  height: 100vh;
+  padding: 0 40px;
+}
+
+nav,
+.content {
+  height: 100vh;
+  padding: 40px;
 }
 
 li {
@@ -83,10 +90,32 @@ form {
 
 .title-desc,
 .genre-desc,
-.author-desc {
+.author-desc,
+.book-desc {
   text-transform: capitalize;
 }
 
 #error {
   font-size: 14px;
+}
+
+input[type="search"] {
+  height: 30px;
+  font-size: 14px !important;
+}
+
+.dropdown-toggle {
+  background-color: rgb(218, 218, 218) !important;
+  color: rgb(34, 33, 33) !important;
+  border: none !important;
+}
+
+input[type="radio"] {
+  width: 14px;
+  height: 14px;
+}
+
+label[type="radio"] {
+  font-size: 30px !important;
+  color: red !important;
 }

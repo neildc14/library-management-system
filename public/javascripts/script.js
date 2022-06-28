@@ -14,6 +14,14 @@ navBtn.forEach((nav) => {
   });
 });
 
-input.addEventListener("keydown", () => {
-  error.remove();
-});
+function Input() {
+  if (input) {
+    input.addEventListener("keydown", () => {
+      error.remove();
+    });
+  } else {
+    return false;
+  }
+}
+
+Input();

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include('./partials/head'); %>
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <%- include('./partials/nav'); %>
+
+          <div class="col col-sm-10 content">
+            <div class="heading bg-info py-2">
+              <h2 class="title text-light my-0"><%=title%></h2>
+            </div>
+
+            <form class="mt-4" action="" method="POST">
+              <div class="mb-3">
+                <label for="title" class="form-label">Title:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="title"
+                  id="title"
+                  placeholder="Name of book"
+                  value="<%=undefined===book ? '' : book.title%>"
+                  required="true"
+                />
+
+                <label for="author" class="form-label mt-1">Author:</label>
+                <select
+                  class="form-select form-control"
+                  type="select"
+                  name="author"
+                  id="author"
+                  aria-label="Default select example"
+                >
+                  <%authors.sort(function(a,b){ let textA =
+                  a.family_name.toUpperCase(); let textB =
+                  b.family_name.toUpperCase(); return (textA < textB) ? -1 :
+                  (textA > textB) ? 1 : 0;}) %> <%authors.forEach((author)=>{
+                  if(book !== undefined) {%>
+                  <option
+                    class="author-desc"
+                    value="<%=author._id%>"
+                    select="<%=author._id.toString()===book.author._id.toString() ? 'selected' : false%>"
+                  >
+                    <%=author.name%>
+                  </option>
+                  <%} else {%>
+                  <option value="<%=author._id%>" class="author-desc">
+                    <%=author.name%>
+                  </option>
+                  <%}})%>
+                </select>
+
+                <label for="summary" class="form-label mt-1">Summary:</label>
+                <textarea
+                  class="form-control"
+                  placeholder="Summary..."
+                  name="summary"
+                  id="summary"
+                  style="height: 100px"
+                  required="true"
+                ></textarea>
+
+                <label for="isbn" class="form-label mt-1">ISBN:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="isbn"
+                  id="isbn"
+                  placeholder="xxx-xxx-xxx"
+                  required="true"
+                />
+
+                <div class="d-flex justify-content-between mt-3">
+                  <div class="btn-group">
+                    <button
+                      class="btn btn-sm dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Choose genre
+                    </button>
+                    <ul class="dropdown-menu p-2">
+                      <input
+                        class="form-control me-2"
+                        type="search"
+                        placeholder="Search"
+                        aria-label="Search"
+                        onkeyup="searchData(this)"
+                      />
+
+                      <%for(let i = 0; i < 10; i++) { %>
+                      <li>
+                        <div class="form-check mt-1">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            name="genre"
+                            id="<= genres[i]._id>"
+                            value="<%=genres[i]._id%>"
+                          />
+                          <label
+                            class="form-check-label genre-desc"
+                            for="<%=genres[i]._id%>"
+                            id="<%=genres[i].name%>"
+                          >
+                            <%=genres[i].name%>
+                          </label>
+                        </div>
+                      </li>
+                      <%}%>
+                    </ul>
+
+                    <%if(errors) {%> <%error.forEach((error) => {%>
+                    <p class="text-danger" id="error"><%=error %></p>
+                    <%})%> <%}%>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      function searchData(e) {
+        fetch("/catalog/book/create", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ payload: e.value }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            let payload = data.payload;
+            console.log(payload);
+          });
+      }
+    </script>
+    <%- include('./partials/scripts');%>
+  </body>
+</html>

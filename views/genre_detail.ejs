@@ -20,7 +20,7 @@
 
               <%} else {%> <%genre_books.forEach((genre_book) =>{ %>
               <div>
-                <a href="<%=genre_book.url%>"><%=genre_book.title%></a>
+                <a class="book-desc" href="<%=genre_book.url%>"><%=genre_book.title%></a>
                 <p><%=genre_book.summary%></p>
               </div>
               <%})%><%}%>
