@@ -126,22 +126,21 @@ exports.book_create_get = function (req, res, next) {
 
 // Handle book create on POST.
 exports.book_create_post = [
+  // async (req, res, next) => {
+  //   let payload = req.body.payload;
+  //   let search = await Genre.find({
+  //     name: { $regex: new RegExp("^" + payload + ".*", "i") },
+  //   });
+  //   search = search.slice(0, 10);
+  //   res.render("book_form", { payload: search });
+  //   next();
+  // },
   // Convert the genre to an array.
   (req, res, next) => {
     if (!(req.body.genre instanceof Array)) {
       if (typeof req.body.genre === "undefined") req.body.genre = [];
       else req.body.genre = new Array(req.body.genre);
     }
-    next();
-  },
-  async (req, res, next) => {
-    let payload = req.body.payload.trim();
-    let search = await Genre.find({
-      name: { $regex: new RegExp("^" + payload + ".*", "i") },
-    }).exec();
-    search = search.slice(0, 10);
-    res.send({ payload: search });
-    return;
     next();
   },
 
