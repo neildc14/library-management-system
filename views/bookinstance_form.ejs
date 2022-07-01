@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include('./partials/head'); %>
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <%- include('./partials/nav'); %>
+
+          <div class="col col-sm-10 content">
+            <div class="heading bg-info py-2">
+              <h2 class="title text-light my-0"><%=title%></h2>
+            </div>
+
+            <form class="mt-4" action="" method="POST">
+              <div class="mb-3">
+                <label for="book">Book:</label>
+                <select
+                  type="select"
+                  class="form-control"
+                  name="book"
+                  id="book"
+                  name="title"
+                  placeholder="Select Book"
+                  required="true"
+                >
+                  <%book_list.sort(function(a,b) { let textA =
+                  a.title.toUpperCase(); let textB = b.title.toUpperCase()
+                  return (textA < textB) ? -1 : (textA > textB) ? 1 : 0 })%>
+                  <%book_list.forEach((book) => {%>
+                  <option
+                    value="<%=book._id%>"
+                    id="<%=book.title%>"
+                    selected="selected_book==book._id.toString() ? 'selected' : false"
+                  >
+                    <%=book.title%>
+                  </option>
+                  <%})%>
+                </select>
+                <label for="imprint" class="mt-1">Imprint:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="imprint"
+                  id="imprint"
+                  placeholder="Publisher and date information"
+                  required="true"
+                  autocomplete="off"
+                  value="<%=bookinstance === undefined? '' : bookinstance.imprint%>"
+                />
+                <label for="due_back" class="mt-1"
+                  >Date when book available:</label
+                >
+                <input
+                  type="date"
+                  name="due_back"
+                  id="due_back"
+                  class="form-control"
+                  value="<%= bookinstance===undefined ? '' : bookinstance.due_back%>"
+                />
+                <label for="status" class="mt-1">Status:</label>
+                <select
+                  name="status"
+                  id="status"
+                  class="form-control form-select"
+                  required="true"
+                  selected="bookinstance.status !==undefined ? 'selected' : false"
+                >
+                  <option value="Maintenance">Maintenance</option>
+                  <option value="Available">Available</option>
+                  <option value="Loaned">Loaned</option>
+                  <option value="Reserved">Reserved</option>
+                </select>
+                <%if(errors) {%> <%error.forEach((error) => {%>
+                <p class="text-danger" id="error"><%=error %></p>
+                <%})%> <%}%>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+    <%- include('./partials/scripts');%>
+  </body>
+</html>

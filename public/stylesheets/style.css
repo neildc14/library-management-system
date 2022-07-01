@@ -91,7 +91,7 @@ form {
 .title-desc,
 .genre-desc,
 .author-desc,
-.book-desc {
+.book-desc, .instance-desc{
   text-transform: capitalize;
 }
 
