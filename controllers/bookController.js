@@ -214,11 +214,39 @@ exports.book_create_post = [
   },
 ];
 
-exports.book_genre_post =
-  // Display book delete form on GET.
-  exports.book_delete_get = function (req, res) {
-    res.send("NOT IMPLEMENTED: Book delete GET");
-  };
+// Display book delete form on GET.
+exports.book_delete_get = function (req, res, next) {
+  var id = mongoose.Types.ObjectId(req.params.id);
+  async.parallel(
+    {
+      book: function (callback) {
+        Book.findById(id).populate("author").populate("genre").exec(callback);
+      },
+
+      book_instance: function (callback) {
+        BookInstance.find({ book: id }).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results.book == null) {
+        var err = new Error("Book not found");
+        err.status = 404;
+        return next(err);
+      }
+
+      res.render("book_delete", {
+        title: results.book.title,
+        book: results.book,
+        book_instances: results.book_instance,
+        active: "/catalog/book/:id/delete",
+        navlinks,
+      });
+    }
+  );
+};
 
 // Handle book delete on POST.
 exports.book_delete_post = function (req, res) {
