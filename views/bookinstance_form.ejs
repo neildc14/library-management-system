@@ -73,7 +73,7 @@
                 </select>
                 <%if(errors) {%> <%error.forEach((error) => {%>
                 <p class="text-danger" id="error"><%=error %></p>
-                <%})%> <%}%>
+                <%})%><%}%>
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
@@ -81,6 +81,7 @@
         </div>
       </div>
     </main>
+
     <%- include('./partials/scripts');%>
   </body>
 </html>

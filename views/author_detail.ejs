@@ -25,11 +25,14 @@
               <div class="horizontal-line"></div>
 
               <%if(author_books.length <= 0) {%>
-              <p>This author has no books.</p>
+              <p class="mt-1">This author has no books.</p>
               <%}%> <%author_books.forEach((book)=> {%>
               <a href="<%=book.url%>"><%=book.title%></a>
               <p><%=book.summary%></p>
               <%})%>
+              <a class="btn btn-primary" href="<%=author.url+'/delete'%>"
+                >Delete author</a
+              >
             </section>
           </div>
         </div>

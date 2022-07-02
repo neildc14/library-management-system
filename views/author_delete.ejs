@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head'); %>
+
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <%- include('./partials/nav'); %>
+          <div class="col col-sm-10 content">
+            <div class="heading bg-secondary py-2">
+              <h2 class="title text-light my-0">
+                Author:
+                <span class="author-desc"><%=author.name%></span>
+              </h2>
+            </div>
+            <section class="mt-2">
+              <p>
+                <%=author.date_of_birth_formatted%>
+                <%if(author.date_of_death_formatted !== " ") {%> - <%}%>
+                <%=author.date_of_death_formatted%>
+              </p>
+            </section>
+            <section class="mx-5 mt-4">
+              <h4 class="mx-2">Books</h4>
+              <div class="horizontal-line"></div>
+
+              <%if(author_books.length > 0) {%>
+              <p class="mt-1">
+                <strong
+                  >Delete the following books before attempting to delete this
+                  author.</strong
+                >
+              </p>
+              <%author_books.forEach((book)=> {%>
+              <a href="<%=book.url%>"><%=book.title%></a>
+              <p><%=book.summary%></p>
+              <%})%> <%} else{%>
+
+              <form
+                action=""
+                method="POST"
+                style="margin-left: 0 !important"
+                class="border-0"
+              >
+                <div class="form-group">
+                  <p class="mt-1">Do you really want to delete this Author?</p>
+                  <input
+                    type="hidden"
+                    name="authorid"
+                    value="<%=author._id%>"
+                    required="true"
+                  />
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+              </form>
+              <%}%>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+    <%- include('./partials/scripts.ejs') %>
+  </body>
+</html>
