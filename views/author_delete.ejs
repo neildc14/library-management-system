@@ -26,12 +26,17 @@
               <div class="horizontal-line"></div>
 
               <%if(author_books.length > 0) {%>
-              <p class="mt-1">
-                <strong
-                  >Delete the following books before attempting to delete this
-                  author.</strong
-                >
-              </p>
+              <div
+                class="alert alert-danger d-flex align-items-center mt-1"
+                role="alert"
+              >
+                <span class="material-symbols-outlined pe-2"> warning </span>
+                <div>
+                  Delete the following book before attempting to delete this
+                  author.
+                </div>
+              </div>
+
               <%author_books.forEach((book)=> {%>
               <a href="<%=book.url%>"><%=book.title%></a>
               <p><%=book.summary%></p>
@@ -44,7 +49,15 @@
                 class="border-0"
               >
                 <div class="form-group">
-                  <p class="mt-1">Do you really want to delete this Author?</p>
+                  <div
+                    class="alert alert-warning d-flex align-items-center mt-1"
+                    role="alert"
+                  >
+                    <span class="material-symbols-outlined pe-2">
+                      warning
+                    </span>
+                    <div>Do you really want to delete this author?</div>
+                  </div>
                   <input
                     type="hidden"
                     name="authorid"

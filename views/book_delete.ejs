@@ -30,10 +30,23 @@
               <div class="horizontal-line"></div>
 
               <%if(book_instances.length <= 0) {%>
-              <p>There are no copies of this book in the library.</p>
+              <p class="mt-1">
+                There are no copies of this book in the library.
+              </p>
+              <%}%> <%if(book_instances.length > 0) {%>
+              <div
+                class="alert alert-danger d-flex align-items-center mt-1"
+                role="alert"
+              >
+                <span class="material-symbols-outlined pe-2"> warning </span>
+                <div>
+                  Delete the following bookintances before attempting to delete
+                  this book.
+                </div>
+              </div>
 
-              <%}%> <%book_instances.forEach((instance)=> {%>
-              <%if(instance.status ==="Available") {%>
+              <%book_instances.forEach((instance)=> {%> <%if(instance.status
+              ==="Available") {%>
               <p class="text-success m-0"><%=instance.status%></p>
               <%} else if(instance.status === "Maintenance") {%>
               <p class="text-danger m-0"><%=instance.status%></p>
@@ -51,7 +64,32 @@
                 ><a href="<%=instance.url%>"><%=instance.id%></a>
               </p>
               <hr />
-              <%}) %>
+              <%})%> <%} else{%>
+              <form
+                action=""
+                method="POST"
+                class="border-0 p-0"
+                style="margin-left: 0 !important"
+              >
+                <div
+                  class="alert alert-warning d-flex align-items-center"
+                  role="alert"
+                >
+                  <span class="material-symbols-outlined pe-2"> warning </span>
+                  <div>Do you really want to delete this Author?</div>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="hidden"
+                    name="bookid"
+                    id="<%=book._id%>"
+                    value="<%=book._id%>"
+                    required="true"
+                  />
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+              </form>
+              <%}%>
             </section>
           </div>
         </div>

@@ -238,7 +238,7 @@ exports.book_delete_get = function (req, res, next) {
       }
 
       res.render("book_delete", {
-        title: results.book.title,
+        title: "Delete Book",
         book: results.book,
         book_instances: results.book_instance,
         active: "/catalog/book/:id/delete",
@@ -249,8 +249,46 @@ exports.book_delete_get = function (req, res, next) {
 };
 
 // Handle book delete on POST.
-exports.book_delete_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: Book delete POST");
+exports.book_delete_post = function (req, res, next) {
+  const id = mongoose.Types.ObjectId(req.body.bookid.trim());
+  async.parallel(
+    {
+      book: function (callback) {
+        Book.findById(id).exec(callback);
+      },
+      book_instance: function (callback) {
+        BookInstance.find({ book: id })
+          .populate("author")
+          .populate("genre")
+          .exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      // Success
+      if (results.book_instance.length > 0) {
+        res.render("book_delete", {
+          title: "Delete Book",
+          book: results.book,
+          book_instances: results.book_instance,
+          active: "/catalog/authors/:id/delete",
+          navlinks,
+        });
+        return;
+      } else {
+        // Author has no books. Delete object and redirect to the list of authors.
+        Book.findByIdAndRemove(id, function deleteBook(err) {
+          if (err) {
+            return next(err);
+          }
+          // Success - go to author list
+          res.redirect("/catalog/books");
+        });
+      }
+    }
+  );
 };
 
 // Display book update form on GET.
