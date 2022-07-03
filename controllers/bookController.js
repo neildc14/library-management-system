@@ -145,10 +145,10 @@ exports.book_create_post = [
   },
 
   // Validate and sanitize fields.
-  body("title").trim().isLength({ min: 1 }).escape(),
-  body("author").trim().isLength({ min: 1 }).escape(),
-  body("summary").trim().isLength({ min: 1 }).escape(),
-  body("isbn").trim().isLength({ min: 1 }).escape(),
+  [body("title").toLowerCase().trim().isLength({ min: 1 }).escape()],
+  [body("author").toLowerCase().trim().isLength({ min: 1 }).escape()],
+  [body("summary").toLowerCase().trim().isLength({ min: 1 }).escape()],
+  [body("isbn").toLowerCase().trim().isLength({ min: 1 }).escape()],
   body("genre.*").escape(),
 
   // Process request after validation and sanitization.

@@ -28,7 +28,33 @@
             <section class="mx-5 mt-4">
               <h4 class="mx-2">Copies</h4>
               <div class="horizontal-line"></div>
-
+              <form
+                action=""
+                method="POST"
+                class="border-0 p-0 mt-2"
+                style="margin-left: 0 !important"
+              >
+                <div
+                  class="alert alert-warning d-flex align-items-center"
+                  role="alert"
+                >
+                  <span class="material-symbols-outlined"> warning </span>
+                  <div class="px-2">
+                    Do you really want to delete this Author?
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="hidden"
+                    name="bookid"
+                    id="<%=book._id%>"
+                    value="<%=book._id%>"
+                    required="true"
+                  />
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+              </form>
+              <hr />
               <%if(book_instances.length <= 0) {%>
               <p class="mt-1">
                 There are no copies of this book in the library.
@@ -38,8 +64,8 @@
                 class="alert alert-danger d-flex align-items-center mt-1"
                 role="alert"
               >
-                <span class="material-symbols-outlined pe-2"> warning </span>
-                <div>
+                <span class="material-symbols-outlined"> warning </span>
+                <div class="px-2">
                   Delete the following bookintances before attempting to delete
                   this book.
                 </div>
@@ -64,32 +90,7 @@
                 ><a href="<%=instance.url%>"><%=instance.id%></a>
               </p>
               <hr />
-              <%})%> <%} else{%>
-              <form
-                action=""
-                method="POST"
-                class="border-0 p-0"
-                style="margin-left: 0 !important"
-              >
-                <div
-                  class="alert alert-warning d-flex align-items-center"
-                  role="alert"
-                >
-                  <span class="material-symbols-outlined pe-2"> warning </span>
-                  <div>Do you really want to delete this Author?</div>
-                </div>
-                <div class="form-group">
-                  <input
-                    type="hidden"
-                    name="bookid"
-                    id="<%=book._id%>"
-                    value="<%=book._id%>"
-                    required="true"
-                  />
-                  <button type="submit" class="btn btn-danger">Delete</button>
-                </div>
-              </form>
-              <%}%>
+              <%})%> <%} else{%> <%}%>
             </section>
           </div>
         </div>

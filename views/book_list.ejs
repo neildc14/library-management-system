@@ -23,7 +23,9 @@
 
                 <%}%> <%book_list.forEach((book)=> {%>
                 <li class="list-group-item booklist">
-                  <a href="<%=book.url%>"><%=book.title%></a>
+                  <a href="<%=book.url%>"
+                    ><span class="book-desc"><%=book.title%></span></a
+                  >
                   <span class="author-desc">(<%=book.author.name%>)</span>
                 </li>
                 <%}) %>

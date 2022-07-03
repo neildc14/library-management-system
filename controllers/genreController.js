@@ -115,13 +115,72 @@ exports.genre_create_post = [
 ];
 
 // Display Genre delete form on GET.
-exports.genre_delete_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: Genre delete GET");
+exports.genre_delete_get = function (req, res, next) {
+  var id = mongoose.Types.ObjectId(req.params.id);
+  async.parallel(
+    {
+      genre: function (callback) {
+        Genre.findById(id).exec(callback);
+      },
+
+      genre_books: function (callback) {
+        Book.find({ genre: id }).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results.genre == null) {
+        // No results.
+        var err = new Error("Genre not found");
+        err.status = 404;
+        return next(err);
+      }
+      // Successful, so render
+      res.render("genre_delete", {
+        title: "Genre Delete",
+        genre: results.genre,
+        genre_books: results.genre_books,
+        active: "/catalog/genres/:id/delete",
+        navlinks,
+      });
+    }
+  );
 };
 
 // Handle Genre delete on POST.
-exports.genre_delete_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: Genre delete POST");
+exports.genre_delete_post = function (req, res, next) {
+  var id = mongoose.Types.ObjectId(req.body.genreid.trim());
+  async.parallel(
+    {
+      genre: function (callback) {
+        Genre.findById(id).exec(callback);
+      },
+
+      genre_books: function (callback) {
+        Book.find({ genre: id }).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results.genre == null) {
+        // No results.
+        var err = new Error("Genre not found");
+        err.status = 404;
+        return next(err);
+      } else {
+        Genre.findByIdAndRemove(id, function deleteGenre(err) {
+          if (err) {
+            return next(err);
+          }
+          res.redirect("/catalog/genres");
+        });
+      }
+    }
+  );
 };
 
 // Display Genre update form on GET.
