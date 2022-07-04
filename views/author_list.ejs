@@ -8,14 +8,19 @@
           <%- include('./partials/nav'); %>
 
           <div class="col col-sm-10 content">
-            <div class="heading bg-success d-flex align-items-center py-2">
-              <img
-                src="/images/author.png"
-                alt="library folder image"
-                height="40"
-                width="40"
-              />
-              <h2 class="title text-light mx-2 my-0"><%=title%></h2>
+            <div
+              class="heading bg-success d-flex align-items-center py-2 d-flex justify-content-between"
+            >
+              <div class="d-flex">
+                <img
+                  src="/images/author.png"
+                  alt="library folder image"
+                  height="40"
+                  width="40"
+                />
+                <h2 class="title text-light mx-2 my-0"><%=title%></h2>
+              </div>
+              <span class="text-light">Total: <%=author_list.length%></span>
             </div>
             <div class="card mt-4">
               <table class="table m-0">

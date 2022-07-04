@@ -73,22 +73,29 @@
 
               <%book_instances.forEach((instance)=> {%> <%if(instance.status
               ==="Available") {%>
+
               <p class="text-success m-0"><%=instance.status%></p>
               <%} else if(instance.status === "Maintenance") {%>
+
               <p class="text-danger m-0"><%=instance.status%></p>
               <%} else {%>
+
               <p class="text-warning m-0"><%=instance.status%></p>
               <%}%>
+
               <p class="m-0"><strong>Imprint: </strong><%=instance.imprint%></p>
               <%if(instance.status !== "Available") {%>
+
               <p class="m-0">
                 <strong>Due back: </strong><%=instance.due_back_formatted%>
               </p>
               <%}%>
+
               <p class="m-0">
                 <strong>Id: </strong
                 ><a href="<%=instance.url%>"><%=instance.id%></a>
               </p>
+
               <hr />
               <%})%> <%} else{%> <%}%>
             </section>

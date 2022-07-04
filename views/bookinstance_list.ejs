@@ -7,14 +7,21 @@
         <div class="row">
           <%- include('./partials/nav'); %>
           <div class="col col-sm-10 content">
-            <div class="heading bg-success d-flex align-items-center py-2">
-              <img
-                src="/images/instance.png"
-                alt="library folder image"
-                height="40"
-                width="40"
-              />
-              <h2 class="title text-light mx-2 my-0"><%=title%></h2>
+            <div
+              class="heading bg-success d-flex align-items-center py-2 d-flex justify-content-between"
+            >
+              <div class="d-flex">
+                <img
+                  src="/images/instance.png"
+                  alt="library folder image"
+                  height="40"
+                  width="40"
+                />
+                <h2 class="title text-light mx-2 my-0"><%=title%></h2>
+              </div>
+              <span class="text-white">
+                Total: <%=bookinstance_list.length%>
+              </span>
             </div>
             <div class="card mt-4">
               <table class="table m-0">
@@ -32,6 +39,7 @@
                     <th scope="col">Imprint</th>
                     <th scope="col">Status</th>
                     <th scope="col">Due Back</th>
+                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <%bookinstance_list.forEach((bookinstance)=> {%>
@@ -53,7 +61,17 @@
                     <td class="text-warning">
                       (<%=bookinstance.due_back_formatted%>)
                     </td>
-                    <% } %>
+                    <% } else {%>
+                    <td></td>
+                    <%}%>
+                    <td>
+                      <a
+                        class="btn btn-danger btn-sm"
+                        href="<%=bookinstance.url+'/delete'%>"
+                        style="display: inline-block !important"
+                        >Delete</a
+                      >
+                    </td>
                   </tr>
                 </tbody>
                 <%}) %>
