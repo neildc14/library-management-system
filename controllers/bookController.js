@@ -8,7 +8,7 @@ var async = require("async");
 var navlinks = require("./modules/navlinks");
 
 //middleware
-var { body, validationResult } = require("express-validator");
+var { body, validationResult, check } = require("express-validator");
 
 exports.index = function (req, res) {
   async.parallel(
@@ -183,12 +183,12 @@ exports.book_create_post = [
             return next(err);
           }
 
-          // Mark our selected genres as checked.
-          // for (let i = 0; i < results.genres.length; i++) {
-          //   if (book.genre.indexOf(results.genres[i]._id) > -1) {
-          //     results.genres[i].checked = "true";
-          //   }
-          // }
+          //Mark our selected genres as checked.
+          for (let i = 0; i < results.genres.length; i++) {
+            if (book.genre.indexOf(results.genres[i]._id) > -1) {
+              results.genres[i].checked = "true";
+            }
+          }
           res.render("book_form", {
             title: "Create Book",
             authors: results.authors,
@@ -292,8 +292,55 @@ exports.book_delete_post = function (req, res, next) {
 };
 
 // Display book update form on GET.
-exports.book_update_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: Book update GET");
+exports.book_update_get = function (req, res, next) {
+  async.parallel(
+    {
+      book: function (callback) {
+        Book.findById(req.params.id)
+          .populate("author")
+          .populate("genre")
+          .exec(callback);
+      },
+      authors: function (callback) {
+        Author.find(callback);
+      },
+      genres: function (callback) {
+        Genre.find(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results.book == null) {
+        // No results.
+        var err = new Error("Book not found");
+        err.status = 404;
+        return next(err);
+      }
+      // Success.
+      // Mark our selected genres as checked.
+
+      results.genres.forEach((genre) => {
+        results.book.genre.forEach((genre_of_book) => {
+          if (genre._id.toString() == genre_of_book._id.toString()) {
+            genre.checked = true;
+          }
+        });
+      });
+
+      res.render("book_form", {
+        title: "Update Book",
+        authors: results.authors,
+        genres: results.genres,
+        errors: null,
+        active: "/catalog/book/:id/update",
+        book: results.book,
+        check: check,
+        navlinks,
+      });
+    }
+  );
 };
 
 // Handle book update on POST.

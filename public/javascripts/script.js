@@ -25,3 +25,14 @@ function Input() {
 }
 
 Input();
+
+function isChecked() {
+  let checkboxes = document.querySelectorAll('[name="genre"]');
+  checkboxes.forEach((data) => {
+    if (data.dataset.checked === "true") {
+      data.checked = true;
+    }
+  });
+}
+
+isChecked();

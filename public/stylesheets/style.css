@@ -88,10 +88,16 @@ form {
   font-weight: 500 !important;
 }
 
+.dropdown-menu {
+  max-height: 20rem !important;
+  overflow-y: scroll !important;
+}
+
 .title-desc,
 .genre-desc,
 .author-desc,
-.book-desc, .instance-desc{
+.book-desc,
+.instance-desc {
   text-transform: capitalize;
 }
 
@@ -118,4 +124,8 @@ input[type="radio"] {
 label[type="radio"] {
   font-size: 30px !important;
   color: red !important;
+}
+
+textarea {
+  text-align: justify !important;
 }

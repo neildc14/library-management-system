@@ -28,9 +28,19 @@
             <section class="mx-5 mt-4">
               <h4 class="mx-2">Copies</h4>
               <div class="horizontal-line"></div>
-              <a class="btn btn-primary mt-2" href="<%=book.url+'/delete'%>"
-                >Delete book</a
-              >
+              <div class="d-flex">
+                <a
+                  class="btn btn-success mt-2 btn-sm"
+                  href="<%=book.url+'/update'%>"
+                  >Update book</a
+                >
+                <a
+                  class="btn btn-primary mt-2 btn-sm mx-3"
+                  href="<%=book.url+'/delete'%>"
+                  >Delete book</a
+                >
+              </div>
+
               <hr />
               <%if(book_instances.length <= 0) {%>
               <p>There are no copies of this book in the library.</p>

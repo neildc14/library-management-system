@@ -58,7 +58,7 @@ exports.author_create_get = function (req, res) {
   res.render("author_form", {
     title: "Create Author",
     author: undefined,
-    active: "catalog/author/create",
+    active: "/catalog/author/create",
     errors: null,
     navlinks,
   });
@@ -89,7 +89,7 @@ exports.author_create_post = [
         title: "Create Author",
         author: req.body,
         errors: errors.array(),
-        active: "catalog/author/create",
+        active: "/catalog/author/create",
         navlinks,
       });
       return;

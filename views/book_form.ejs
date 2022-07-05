@@ -60,7 +60,9 @@
                   id="summary"
                   style="height: 100px"
                   required="true"
-                ></textarea>
+                >
+                   <%=book === undefined ? '' : book.summary%>
+                </textarea>
 
                 <label for="isbn" class="form-label mt-1">ISBN:</label>
                 <input
@@ -92,26 +94,28 @@
                         onkeyup="searchData(this)"
                       />
 
-                      <%for(let i = 0; i < 10; i++) { %>
+                      <%genres.forEach((genre)=> { %>
                       <li class="defaultGenres">
                         <div class="form-check mt-1">
                           <input
                             class="form-check-input"
                             type="checkbox"
                             name="genre"
-                            id="<= genres[i]._id>"
-                            value="<%=genres[i]._id%>"
+                            id="<%= genre._id %>"
+                            value="<%=genre._id %>"
+                            data-checked="<%=genre.checked %>"
                           />
                           <label
                             class="form-check-label genre-desc"
-                            for="<%=genres[i]._id%>"
-                            id="<%=genres[i].name%>"
+                            for="<%= genre._id %>"
+                            id="<%=genre.name %>"
                           >
-                            <%=genres[i].name%>
+                            <%=genre.name %>
                           </label>
                         </div>
                       </li>
-                      <%}%>
+
+                      <%})%>
                     </ul>
 
                     <%if(errors) {%> <%error.forEach((error) => {%>
@@ -127,6 +131,7 @@
         </div>
       </div>
     </main>
+    <script></script>
     <!-- <script>
       function searchData(e) {
         const dropdown = document.getElementById("dropDown");
