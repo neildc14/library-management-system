@@ -17,11 +17,19 @@
             <section class="mx-5 mt-4">
               <h4 class="mx-2">Books</h4>
               <div class="horizontal-line"></div>
-              <a class="btn btn-primary mt-2" href="<%=genre.url+'/delete'%>"
-                >Delete genre</a
-              >
+              <div class="d-flex mt-2 mb-3">
+                <a
+                  class="btn btn-success btn-sm"
+                  href="<%=genre.url+'/update'%>"
+                  >Update book</a
+                >
+                <a
+                  class="btn btn-primary btn-sm mx-3"
+                  href="<%=genre.url+'/delete'%>"
+                  >Delete genre</a
+                >
+              </div>
 
-              <hr />
               <%if(genre_books.length <= 0) {%>
               <p>This genre has no books</p>
 

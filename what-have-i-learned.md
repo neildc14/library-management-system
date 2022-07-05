@@ -10,3 +10,6 @@ however, i did not use the validationResult. instead, i implemented the error ha
 JULY 1,2022
 the name attribute is the one that the request.body posted
 to rerender the form when the error occurs, i must have first to find again the instance of the model and return all the data that the request body has.
+
+JULY 5, 2022
+to validate if the checkbox is checked in the iteration of the genre, i have to pass in the genre.checked that contains "true" value into the data-checked to manipulate in dom to add checked attr.
