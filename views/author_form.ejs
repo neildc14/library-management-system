@@ -45,7 +45,7 @@
                   class="form-control"
                   name="date_of_birth"
                   id="date_of_birth"
-                  data-birthdate="<%=author.date_of_birth%>"
+                  data-birthdate="<%=author === undefined ? '' : author.date_of_birth%>"
                 />
                 <label for="date_of_death" class="form-label mt-1"
                   >Date of Death:</label
@@ -55,7 +55,7 @@
                   class="form-control"
                   name="date_of_death"
                   id="date_of_death"
-                  data-deathdate="<%=author.date_of_death%>"
+                  data-deathdate="<%=author === undefined ? '' : author.date_of_death%>"
                 />
               </div>
               <%if(errors !== null) {%>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include('./partials/head'); %>
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <%- include('./partials/nav'); %>
+
+          <div class="col col-sm-10 content">
+            <div class="heading bg-info py-2">
+              <h2 class="title text-light my-0">
+                <span class="instance-desc"><%=title%></span>
+              </h2>
+            </div>
+
+            <form class="mt-4" action="" method="POST">
+              <div class="mb-3">
+                <label for="book">Book:</label>
+                <select
+                  type="select"
+                  class="form-control"
+                  name="book"
+                  id="book"
+                  name="title"
+                  placeholder="Select Book"
+                  required="true"
+                >
+                  <option
+                    value="<%=bookinstance.book._id%>"
+                    id="<%=bookinstance.book.title%>"
+                    selected
+                  >
+                    <%=bookinstance.book.title%>
+                  </option>
+                </select>
+                <label for="imprint" class="mt-1">Imprint:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="imprint"
+                  id="imprint"
+                  placeholder="Publisher and date information"
+                  required="true"
+                  autocomplete="off"
+                  value="<%=bookinstance === undefined? '' : bookinstance.imprint%>"
+                />
+                <label for="due_back" class="mt-1"
+                  >Date when book available:</label
+                >
+                <input
+                  type="date"
+                  name="due_back"
+                  id="due_back"
+                  class="form-control due_back-update"
+                  data-due_back="<%= bookinstance===undefined ? '' : bookinstance.due_back%>"
+                />
+                <label for="status" class="mt-1">Status:</label>
+                <select
+                  name="status"
+                  id="status"
+                  class="form-control form-select"
+                  required="true"
+                  selected="bookinstance.status !==undefined ? 'selected' : false"
+                >
+                  <%if(bookinstance.status === "Maintenance") {%>
+                  <option value="<%=bookinstance.status%>">
+                    <%=bookinstance.status%>
+                  </option>
+                  <option value="Available">Available</option>
+                  <option value="Loaned">Loaned</option>
+                  <option value="Reserved">Reserved</option>
+
+                  <%} else if(bookinstance.status === "Available") {%>
+                  <option value="<%=bookinstance.status%>">
+                    <%=bookinstance.status%>
+                  </option>
+                  <option value="Maintenance">Maintenace</option>
+                  <option value="Loaned">Loaned</option>
+                  <option value="Reserved">Reserved</option>
+
+                  <%} else if(bookinstance.status === "Loaned") {%>
+                  <option value="<%=bookinstance.status%>">
+                    <%=bookinstance.status%>
+                  </option>
+                  <option value="Maintenance">Maintentance</option>
+                  <option value="Available">Available</option>
+                  <option value="Reserved">Reserved</option>
+
+                  <%} else if(bookinstance.status === "Reserved") {%>
+                  <option value="<%=bookinstance.status%>">
+                    <%=bookinstance.status%>
+                  </option>
+                  <option value="Maintenance">Maintentance</option>
+                  <option value="Available">Available</option>
+                  <option value="Loaned">Loaned</option>
+                  <%}%>
+                </select>
+
+                <%if(errors) {%> <%error.forEach((error) => {%>
+                <p class="text-danger" id="error"><%=error %></p>
+                <%})%><%}%>
+              </div>
+              <div class="d-flex justify-content-end">
+                <button type="reset" class="btn btn-secondary mx-3">
+                  Reset
+                </button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <%- include('./partials/scripts');%>
+  </body>
+</html>
