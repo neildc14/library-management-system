@@ -40,10 +40,19 @@ isChecked();
 function getBirthDate() {
   let date_of_birth = document.querySelector('[name="date_of_birth"]');
   const BIRTHDATE = date_of_birth.dataset.birthdate;
+  let birth_date = new Date(BIRTHDATE);
 
-  var date = new Date(BIRTHDATE);
-  var date_formatted =
-    date.getFullYear() + "-" + date.getMonth() + 1 + "-" + date.getDate();
+  let month = birth_date.getMonth() + 1;
+  if (month < 10) {
+    month = `0${birth_date.getMonth() + 1}`;
+  }
+
+  let date = birth_date.getDate();
+  if (date < 10) {
+    date = `0${birth_date.getDate()}`;
+  }
+
+  let date_formatted = `${birth_date.getFullYear()}-${month}-${date}`;
   date_of_birth.value = date_formatted;
 }
 getBirthDate();
@@ -51,16 +60,22 @@ getBirthDate();
 function getDeathDate() {
   let date_of_death = document.querySelector('[name="date_of_death"]');
   const DEATHDATE = date_of_death.dataset.deathdate;
+  let death_date = new Date(DEATHDATE);
 
-  var date = new Date(DEATHDATE);
-  if (isNaN(date)) {
-    date_of_death.value = "";
-  } else {
-    var date_formatted =
-      date.getFullYear() + "-" + date.getMonth() + 1 + "-" + date.getDate();
+  if (isNaN(death_date)) return (date_of_death.value = "");
 
-    date_of_death.value = date_formatted;
+  let month = death_date.getMonth() + 1;
+  if (month < 10) {
+    month = `0${death_date.getMonth() + 1}`;
   }
+
+  let date = death_date.getDate();
+  if (date < 10) {
+    date = `0${death_date.getDate()}`;
+  }
+
+  let date_formatted = `${death_date.getFullYear()}-${month}-${date}`;
+  date_of_death.value = date_formatted;
 }
 
 getDeathDate();
