@@ -36,3 +36,31 @@ function isChecked() {
 }
 
 isChecked();
+
+function getBirthDate() {
+  let date_of_birth = document.querySelector('[name="date_of_birth"]');
+  const BIRTHDATE = date_of_birth.dataset.birthdate;
+
+  var date = new Date(BIRTHDATE);
+  var date_formatted =
+    date.getFullYear() + "-" + date.getMonth() + 1 + "-" + date.getDate();
+  date_of_birth.value = date_formatted;
+}
+getBirthDate();
+
+function getDeathDate() {
+  let date_of_death = document.querySelector('[name="date_of_death"]');
+  const DEATHDATE = date_of_death.dataset.deathdate;
+
+  var date = new Date(DEATHDATE);
+  if (isNaN(date)) {
+    date_of_death.value = "";
+  } else {
+    var date_formatted =
+      date.getFullYear() + "-" + date.getMonth() + 1 + "-" + date.getDate();
+
+    date_of_death.value = date_formatted;
+  }
+}
+
+getDeathDate();

@@ -16,3 +16,5 @@ to validate if the checkbox is checked in the iteration of the genre, i have to 
 
 JULY 6, 2022
 when i try to uopdate the records, i encountered an error "Performing an update on the path '\_id' would modify the immutable field '\_id'" and i discovered that this error occur when the \_id of the records is trying to modify. because the \_id is a default id provided by the mongodb and it shall not be modified. this problem occurs when we define a new schema that gathers the data from the req.body. when form is submitted. therefore, by removing the new schema and only create an object, the findByIdAndUpdate method doesnt try to modify the \_id.
+
+the date from the database mustbe need to convert into iso format first to be able to extract the value. so i needed to have to convert it in the frontend
