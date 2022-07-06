@@ -41,7 +41,7 @@
                   <option
                     class="author-desc"
                     value="<%=author._id%>"
-                    select="<%=author._id.toString()===book.author._id.toString() ? 'selected' : false%>"
+                    select="<%=author._id.toString()==book.author._id|| author._id.toString()==book.author ? 'selected' : false%>"
                   >
                     <%=author.name%>
                   </option>

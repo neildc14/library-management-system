@@ -366,13 +366,13 @@ exports.book_update_post = [
     const errors = validationResult(req);
 
     // Create a Book object with escaped and trimmed data.
-    var book = new Book({
+    var book = {
       title: req.body.title,
       author: req.body.author,
       summary: req.body.summary,
       isbn: req.body.isbn,
       genre: req.body.genre,
-    });
+    };
 
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitized values/error messages.
@@ -411,14 +411,19 @@ exports.book_update_post = [
       );
       return;
     } else {
-      // Data from form is valid. Save book.
-      book.save(function (err) {
-        if (err) {
-          return next(err);
+      Book.findByIdAndUpdate(
+        req.params.id,
+        book,
+        {},
+        function (err, this_book) {
+          if (err) {
+            return next(err);
+          } else {
+            this_book.save();
+            res.redirect(this_book.url);
+          }
         }
-        //successful - redirect to new book record.
-        res.redirect(book.url);
-      });
+      );
     }
   },
 ];
