@@ -55,7 +55,7 @@
                 <label for="summary" class="form-label mt-1">Summary:</label>
                 <textarea
                   class="form-control"
-                  placeholder="Summary..."
+                  placeholder=""
                   name="summary"
                   id="summary"
                   style="height: 100px"
@@ -70,7 +70,7 @@
                   class="form-control"
                   name="isbn"
                   id="isbn"
-                  value="<%=book.isbn%>"
+                  value="<%= book === undefined ? '' : book.isbn%>"
                   placeholder="xxx-xxx-xxx"
                   required="true"
                   autocomplete="off"
@@ -123,8 +123,14 @@
                     <p class="text-danger" id="error"><%=error %></p>
                     <%})%> <%}%>
                   </div>
-
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <div class="d-flex">
+                    <button type="reset" class="btn btn-secondary mx-3">
+                      Reset
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                      Submit
+                    </button>
+                  </div>
                 </div>
               </div>
             </form>
