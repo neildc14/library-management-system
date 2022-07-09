@@ -6,7 +6,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+var userRouter = require("./routes/users");
 var catalogRouter = require("./routes/catalog");
 
 //auth
@@ -92,7 +92,7 @@ app.use(
     saveUninitialized: true,
     store: sessionStore,
     cookie: {
-      maxAge: 1000 * 30,
+      maxAge: 1000 * 60 * 60 * 24 * 30,
     },
   })
 );
@@ -100,14 +100,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/user=login", (req, res, next) => {
+app.get("/user/login", (req, res, next) => {
   res.render("login", { title: "Login" });
 });
 
 app.post(
   "/login",
   passport.authenticate("local", {
-    failureRedirect: "/login",
+    failureRedirect: "/user/login",
     successRedirect: "/",
   }),
   (err, req, res, next) => {
@@ -116,16 +116,17 @@ app.post(
 );
 
 //register;
-app.get("/user=register", (req, res, next) => {
+app.get("/user/register", (req, res, next) => {
   res.render("register", { title: "Register" });
 });
 
-app.post("/register", (req, res, next) => {
+app.post("/user/register", (req, res, next) => {
   const saltHash = genPassword(req.body.password);
 
   const salt = saltHash.salt;
   const hash = saltHash.hash;
   const newUser = new User({
+    name: req.body.name,
     username: req.body.username,
     hash: hash,
     salt: salt,
@@ -133,7 +134,7 @@ app.post("/register", (req, res, next) => {
   newUser.save().then((user) => {
     console.log(user);
   });
-  res.redirect("/login");
+  res.redirect("/user/login");
 });
 
 app.get("/logout", (req, res, next) => {
@@ -164,17 +165,17 @@ function genPassword(password) {
   };
 }
 
+app.use("/", checkAuthentication, indexRouter);
+app.use("/catalog", checkAuthentication, catalogRouter);
+
 function checkAuthentication(req, res, next) {
   if (req.isAuthenticated()) {
     //req.isAuthenticated() will return true if user is logged in
     next();
   } else {
-    res.redirect("/user=login");
+    res.redirect("/user/login");
   }
 }
-
-app.use("/", checkAuthentication, indexRouter);
-app.use("/catalog", catalogRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

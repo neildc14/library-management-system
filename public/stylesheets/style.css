@@ -129,3 +129,24 @@ label[type="radio"] {
 textarea {
   text-align: justify !important;
 }
+
+.front-cover {
+  background: #072f5f;
+}
+
+.banner {
+  align-items: center !important;
+}
+
+.auth-form {
+  border: 1px solid rgb(216, 215, 215);
+}
+
+.log-out {
+  background-color: #efe6e4;
+}
+
+.log-out:hover {
+  background-color: #d6d3d2;
+  transition: all 0.5s ease-in-out;
+}
