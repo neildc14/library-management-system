@@ -211,7 +211,8 @@ exports.bookinstance_update_post = [
           if (err) {
             return next(err);
           }
-          res.redirect(this_bookinstance.url);
+          this_bookinstance.save();
+          res.redirect("/catalog/bookinstances");
         }
       );
     }

@@ -9,12 +9,23 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var catalogRouter = require("./routes/catalog");
 
+//auth
+var passport = require("passport");
+var LocalStrategy = require("passport-local").Strategy;
+var crypto = require("crypto");
+var session = require("express-session");
+var MongoStore = require("connect-mongo");
+var User = require("./models/users");
+
 var app = express();
 
 //Set up default mongoose connection
-var mongoDB =
-  "mongodb+srv://neronero:neronero1@cluster0.sjkdwdq.mongodb.net/local_library?retryWrites=true&w=majority";
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+
+require("dotenv").config();
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 //Get the default connection
 var db = mongoose.connection;
@@ -32,8 +43,137 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+//authentication middleware
+passport.use(
+  new LocalStrategy(function (username, password, cb) {
+    User.findOne({ username: username })
+      .then((user) => {
+        if (!user) {
+          return cb(null, false);
+        }
+
+        // Function defined at bottom of app.js
+        const isValid = validPassword(password, user.hash, user.salt);
+
+        if (isValid) {
+          return cb(null, user);
+        } else {
+          return cb(null, false);
+        }
+      })
+      .catch((err) => {
+        cb(err);
+      });
+  })
+);
+
+passport.serializeUser(function (user, cb) {
+  cb(null, user.id);
+});
+
+passport.deserializeUser(function (id, cb) {
+  User.findById(id, function (err, user) {
+    if (err) {
+      return cb(err);
+    }
+    cb(null, user);
+  });
+});
+
+const sessionStore = MongoStore.create({
+  mongoUrl: process.env.MONGO_URI, //(URI FROM.env file)
+});
+
+app.use(
+  session({
+    //secret: process.env.SECRET,
+    secret: "some secret",
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore,
+    cookie: {
+      maxAge: 1000 * 30,
+    },
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get("/user=login", (req, res, next) => {
+  res.render("login", { title: "Login" });
+});
+
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    successRedirect: "/",
+  }),
+  (err, req, res, next) => {
+    if (err) next(err);
+  }
+);
+
+//register;
+app.get("/user=register", (req, res, next) => {
+  res.render("register", { title: "Register" });
+});
+
+app.post("/register", (req, res, next) => {
+  const saltHash = genPassword(req.body.password);
+
+  const salt = saltHash.salt;
+  const hash = saltHash.hash;
+  const newUser = new User({
+    username: req.body.username,
+    hash: hash,
+    salt: salt,
+  });
+  newUser.save().then((user) => {
+    console.log(user);
+  });
+  res.redirect("/login");
+});
+
+app.get("/logout", (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
+
+function validPassword(password, hash, salt) {
+  var hashVerify = crypto
+    .pbkdf2Sync(password, salt, 10000, 64, "sha512")
+    .toString("hex");
+  return hash === hashVerify;
+}
+
+function genPassword(password) {
+  var salt = crypto.randomBytes(32).toString("hex");
+  var genHash = crypto
+    .pbkdf2Sync(password, salt, 10000, 64, "sha512")
+    .toString("hex");
+
+  return {
+    salt: salt,
+    hash: genHash,
+  };
+}
+
+function checkAuthentication(req, res, next) {
+  if (req.isAuthenticated()) {
+    //req.isAuthenticated() will return true if user is logged in
+    next();
+  } else {
+    res.redirect("/user=login");
+  }
+}
+
+app.use("/", checkAuthentication, indexRouter);
 app.use("/catalog", catalogRouter);
 
 // catch 404 and forward to error handler

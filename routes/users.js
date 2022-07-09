@@ -1,13 +1,10 @@
-var express = require("express");
-var router = express.Router();
+// var express = require("express");
+// var router = express.Router();
+// var passport = require("passport");
+// var LocalStrategy = require("passport-local").Strategy;
+// var crypto = require("crypto");
+// var session = require("express-session");
 
-/* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
-});
+// //login
 
-router.get("/cool", function (req, res, next) {
-  res.send("youre so cool");
-});
-
-module.exports = router;
+// module.exports = router;

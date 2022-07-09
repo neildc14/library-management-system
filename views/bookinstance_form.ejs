@@ -17,7 +17,7 @@
                 <label for="book">Book:</label>
                 <select
                   type="select"
-                  class="form-control"
+                  class="form-control instance-desc"
                   name="book"
                   id="book"
                   name="title"
@@ -32,6 +32,7 @@
                     value="<%=book._id%>"
                     id="<%=book.title%>"
                     selected="selected_book==book._id.toString() ? 'selected' : false"
+                    class="instance-desc"
                   >
                     <%=book.title%>
                   </option>
