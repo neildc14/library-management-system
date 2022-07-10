@@ -157,3 +157,9 @@ textarea {
   text-decoration: none;
   pointer-events: none;
 }
+
+.spinner {
+  padding-top: 9vh;
+  height: 100vh;
+  z-index: 1;
+}

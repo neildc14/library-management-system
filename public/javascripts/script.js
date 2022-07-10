@@ -111,3 +111,20 @@ function dueBack() {
 }
 
 dueBack();
+
+function pageLoader() {
+  let spinner = document.querySelector("div.spinner");
+  let mainContent = document.getElementsByTagName("main");
+  let body = document.body;
+  if (spinner) {
+    mainContent[0].style.display = "none";
+    body.onload = function () {
+      setTimeout(() => {
+        spinner.remove();
+        mainContent[0].style.display = "block";
+      }, 70);
+    };
+  }
+}
+
+pageLoader();
