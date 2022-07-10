@@ -150,3 +150,10 @@ textarea {
   background-color: #d6d3d2;
   transition: all 0.5s ease-in-out;
 }
+
+.disabled {
+  color: currentColor;
+  opacity: 0.5;
+  text-decoration: none;
+  pointer-events: none;
+}

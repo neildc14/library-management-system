@@ -37,6 +37,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+//middlewares
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -121,7 +122,7 @@ app.get("/user/register", (req, res, next) => {
 });
 
 app.post("/user/register", (req, res, next) => {
-  const saltHash = genPassword(req.body.password);
+  const saltHash = generatePassword(req.body.password);
 
   const salt = saltHash.salt;
   const hash = saltHash.hash;
@@ -153,7 +154,7 @@ function validPassword(password, hash, salt) {
   return hash === hashVerify;
 }
 
-function genPassword(password) {
+function generatePassword(password) {
   var salt = crypto.randomBytes(32).toString("hex");
   var genHash = crypto
     .pbkdf2Sync(password, salt, 10000, 64, "sha512")
