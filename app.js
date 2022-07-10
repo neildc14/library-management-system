@@ -10,10 +10,12 @@ var userRouter = require("./routes/users");
 var catalogRouter = require("./routes/catalog");
 
 //auth
+var flash = require("connect-flash");
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var crypto = require("crypto");
 var session = require("express-session");
+
 var MongoStore = require("connect-mongo");
 var User = require("./models/users");
 
@@ -43,14 +45,24 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(flash());
 
 //authentication middleware
 passport.use(
-  new LocalStrategy(function (username, password, cb) {
+  new LocalStrategy({ passReqToCallback: true }, function (
+    req,
+    username,
+    password,
+    cb
+  ) {
     User.findOne({ username: username })
       .then((user) => {
         if (!user) {
-          return cb(null, false);
+          return cb(
+            null,
+            false,
+            req.flash("message", "Invalid username or password!")
+          );
         }
 
         // Function defined at bottom of app.js
@@ -59,7 +71,11 @@ passport.use(
         if (isValid) {
           return cb(null, user);
         } else {
-          return cb(null, false);
+          return cb(
+            null,
+            false,
+            req.flash("message", "Invalid username or password!")
+          );
         }
       })
       .catch((err) => {
@@ -102,7 +118,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/user/login", (req, res, next) => {
-  res.render("login", { title: "Login" });
+  res.render("login", { title: "Login", message: req.flash("message") });
 });
 
 app.post(
