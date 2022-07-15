@@ -33,6 +33,9 @@
             <section class="mx-5 mt-4">
               <h4 class="mx-2">Copies</h4>
               <div class="horizontal-line"></div>
+
+              <%if(book_instances.length <= 0) {%>
+
               <form
                 action=""
                 method="POST"
@@ -60,10 +63,6 @@
                 </div>
               </form>
               <hr />
-              <%if(book_instances.length <= 0) {%>
-              <p class="mt-1">
-                There are no copies of this book in the library.
-              </p>
               <%}%> <%if(book_instances.length > 0) {%>
               <div
                 class="alert alert-danger d-flex align-items-center mt-1"

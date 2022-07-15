@@ -5,9 +5,14 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
+//routers
 var indexRouter = require("./routes/index");
 var userRouter = require("./routes/users");
 var catalogRouter = require("./routes/catalog");
+
+//for production
+var compression = require("compression");
+var helmet = require("helmet");
 
 //auth
 var flash = require("connect-flash");
@@ -15,14 +20,12 @@ var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var crypto = require("crypto");
 var session = require("express-session");
-
 var MongoStore = require("connect-mongo");
 var User = require("./models/users");
 
 var app = express();
 
 //Set up default mongoose connection
-
 require("dotenv").config();
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -41,11 +44,14 @@ app.set("view engine", "ejs");
 
 //middlewares
 app.use(logger("dev"));
+app.use(cookieParser());
+app.use(flash());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(flash());
+
+app.use(compression()); //Compress all routes
+app.use(helmet());
 
 //authentication middleware
 passport.use(
@@ -53,25 +59,25 @@ passport.use(
     req,
     username,
     password,
-    cb
+    done
   ) {
     User.findOne({ username: username })
       .then((user) => {
         if (!user) {
-          return cb(
+          return done(
             null,
             false,
             req.flash("message", "Invalid username or password!")
           );
-        }
+        } //validates if user is exists or not
 
         // Function defined at bottom of app.js
         const isValid = validPassword(password, user.hash, user.salt);
 
         if (isValid) {
-          return cb(null, user);
+          return done(null, user);
         } else {
-          return cb(
+          return done(
             null,
             false,
             req.flash("message", "Invalid username or password!")
@@ -79,7 +85,7 @@ passport.use(
         }
       })
       .catch((err) => {
-        cb(err);
+        done(err);
       });
   })
 );
@@ -109,7 +115,7 @@ app.use(
     saveUninitialized: true,
     store: sessionStore,
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 30,
+      maxAge: 1000 * 60 * 60 * 24 * 30, //sec, mins, hrs, days
     },
   })
 );
@@ -128,7 +134,7 @@ app.post(
     successRedirect: "/",
   }),
   (err, req, res, next) => {
-    if (err) next(err);
+    if (err) return next(err);
   }
 );
 

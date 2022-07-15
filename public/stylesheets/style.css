@@ -47,33 +47,6 @@ span {
 .booklist {
   padding: 12px !important;
 }
-/*page loader*/
-/* Center the loader */
-/* #loader {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 1;
-  width: 50px;
-  height: 50px;
-  margin: -76px 0 0 -76px;
-  border: 5px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 5px solid #3498db;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
- */
 
 form {
   max-width: 50%;
@@ -144,6 +117,17 @@ textarea {
 
 .log-out {
   background-color: #efe6e4;
+}
+
+.log-out a {
+  width: 100% !important;
+}
+
+.log-out a:focus,
+.log-out:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none;
 }
 
 .log-out:hover {
